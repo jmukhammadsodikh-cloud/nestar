@@ -7,7 +7,7 @@ import { ApolloDriver } from "@nestjs/apollo"
 import { AppResolver } from './app.resolver';
 import { ComponentsModule } from './components/components.module';
 import { DatabaseModule } from './database/database.module';
-// app module => markaziy module
+// app module => main module, integrations here
 @Module({ // decorator => propertylari
   imports: [
     ConfigModule.forRoot(), // env.integration
