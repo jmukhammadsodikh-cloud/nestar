@@ -7,19 +7,19 @@ import { ApolloDriver } from "@nestjs/apollo"
 import { AppResolver } from './app.resolver';
 import { ComponentsModule } from './components/components.module';
 import { DatabaseModule } from './database/database.module';
-
-@Module({
+// app module => markaziy module
+@Module({ // decorator => propertylari
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot(), // env.integration
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       playground: true,
       uploads: false,
       autoSchemaFile: true,
     }),
-    ComponentsModule,
+    ComponentsModule, // components moduledagi turli hil modularni shakillantirdik
     DatabaseModule],
   controllers: [AppController],
-  providers: [AppService, AppResolver],
+  providers: [AppService, AppResolver], // we don't use 
 })
 export class AppModule { }
