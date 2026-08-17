@@ -34,10 +34,10 @@ export class LoginInput {
     @IsNotEmpty()
     @Length(3, 12)
     @Field(() => String)
-    memberNick: string | undefined;
+    memberNick: string;
 
     @IsNotEmpty()
     @Length(5, 12)
     @Field(() => String)
-    memberPassword: string | undefined;
+    memberPassword: string;
 }
