@@ -2,7 +2,7 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 import * as mongoose from 'mongoose';
 import { MemberAuthType, MemberStatus, MemberType } from '../../enums/member.enum';
 
-@ObjectType()
+@ObjectType()  // dto api chiqib kelayotgan malumot uchun
 export class Member {
     @Field(() => String)
     _id: mongoose.ObjectId;

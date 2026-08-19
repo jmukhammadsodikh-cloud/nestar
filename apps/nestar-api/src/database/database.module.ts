@@ -51,8 +51,3 @@ export class DatabaseModule {
     }
 }
 
-
-// 1️⃣ Decorator lar — @ bilan boshlanadi
-// @Module => decorator biz uchun tahlangan meta datalarni olib kelib beradi
-
-// 2️⃣ Dependency Injection — DI

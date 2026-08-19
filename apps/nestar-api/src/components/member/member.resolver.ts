@@ -34,9 +34,6 @@ export class MemberResolver {
         }
     }
 
-
-
-
     @Mutation(() => String)
     public async updateMember(): Promise<string> {
         console.log("Mutation: updateMember");

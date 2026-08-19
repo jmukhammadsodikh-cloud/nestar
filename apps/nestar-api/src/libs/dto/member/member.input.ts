@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { IsNotEmpty, IsOptional, Length } from 'class-validator';
 import { MemberAuthType, MemberType } from '../../enums/member.enum';
 
-@InputType()
+@InputType() // dto api kirib kelayotgan malumot uchun
 export class MemberInput {
     @IsNotEmpty()
     @Length(3, 12)
@@ -29,7 +29,7 @@ export class MemberInput {
 
 
 
-@InputType()
+@InputType() // dto api kirib kelayotgan malumot uchun
 export class LoginInput {
     @IsNotEmpty()
     @Length(3, 12)
