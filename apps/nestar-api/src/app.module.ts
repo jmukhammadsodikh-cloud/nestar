@@ -18,8 +18,9 @@ import { T } from './libs/types/common';
       playground: true,
       uploads: false,
       autoSchemaFile: true,
-      formatError: (error: T) => {
-        const graphQLFormattedError = {
+      // Error handling global=> formatError har bitta errorni bizga olib ebradi
+      formatError: (error: T) => { // global err => har bir methodda yozmasdan global bitta define qlamiz boldi
+        const graphQLFormattedError = { //GRPHql default error noqulay biz standart errorga otkazamiz
           code: error?.extensions.code,
           message:
             error?.extensions?.exception?.response?.message || error?.extensions?.response?.message || error?.message,
@@ -34,3 +35,6 @@ import { T } from './libs/types/common';
   providers: [AppService, AppResolver], // we don't use 
 })
 export class AppModule { }
+
+// resolverda hosil bolgan errorni qabul qilayapmiz va ozimizni 
+// hosil qilgan error orqali frontentga yuborayapmiz

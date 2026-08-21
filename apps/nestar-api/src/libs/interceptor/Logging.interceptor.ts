@@ -8,7 +8,7 @@ export class LoggingInterceptor implements NestInterceptor {
 
     public intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
         const recordTime = Date.now();
-        const requestType = context.getType<GqlContextType>();
+        const requestType = context.getType<GqlContextType>(); // qanday typedagi request
 
         if (requestType === 'http') {
             /* Develop if needed! */
@@ -34,3 +34,6 @@ export class LoggingInterceptor implements NestInterceptor {
         return JSON.stringify(context).slice(0, 75);
     }
 }
+
+// Serverga kirib kelayotgan requestni log qilishda 
+// va chiqib ketayotgan requsetni log qilishda kerak
