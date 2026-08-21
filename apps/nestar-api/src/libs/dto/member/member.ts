@@ -78,4 +78,6 @@ export class Member {
     @Field(() => Date)
     updatedAt?: Date;
 
+    @Field(() => String, { nullable: true }) // har doim ham bolmasligi mumkun
+    accessToken?: string;
 }
