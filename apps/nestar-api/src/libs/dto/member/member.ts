@@ -78,6 +78,7 @@ export class Member {
     @Field(() => Date)
     updatedAt?: Date;
 
+    // frontendga yuborish uchun tokendi => signup login bolganda
     @Field(() => String, { nullable: true }) // har doim ham bolmasligi mumkun
     accessToken?: string;
 }

@@ -5,10 +5,10 @@ import { JwtModule } from '@nestjs/jwt'
 
 @Module({
   imports: [
-    HttpModule,
+    HttpModule, // jsonwebToken integration
     JwtModule.register({
-      secret: `${process.env.SECRET_TOKEN}`,
-      signOptions: { expiresIn: "30d" }
+      secret: `${process.env.SECRET_TOKEN}`, // option => secret code
+      signOptions: { expiresIn: "30d" }     // option => muddati
     })
   ],
   providers: [AuthService],

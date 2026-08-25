@@ -1,5 +1,6 @@
-// custom decorator => auth memberni hamma datasin olish buchun
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+
+// custom decorator => auth memberni hamma datasin olish buchun
 
 export const AuthMember = createParamDecorator((data: string, context: ExecutionContext | any) => {
 	let request: any;

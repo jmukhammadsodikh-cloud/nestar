@@ -8,7 +8,7 @@ async function bootstrap() { // AppModule markaziy module
   const app = await NestFactory.create(AppModule); // Express + NestJs qorishmasi
   app.useGlobalPipes(new ValidationPipe()); // global validation qonuniyati
   app.useGlobalInterceptors(new LoggingInterceptor());
-  await app.listen(process.env.PORT_API ?? 3000);
+  await app.listen(process.env.PORT_API ?? 3000); // 3007 port
 }
 
 bootstrap();

@@ -2,7 +2,7 @@ import { BadRequestException, CanActivate, ExecutionContext, Injectable, Unautho
 import { AuthService } from '../auth.service';
 import { Message } from 'apps/nestar-api/src/libs/enums/common.enum';
 
-@Injectable()
+@Injectable() // guard himoyani tashkil qlib beradi => token chacking guard 
 export class AuthGuard implements CanActivate {
 	constructor(private authService: AuthService) { }
 
@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
 			if (!authMember) throw new UnauthorizedException(Message.NOT_AUTHENTICATED);
 
 			console.log('memberNick[auth] =>', authMember.memberNick);
-			request.body.authMember = authMember; //MD guard => bodyga authMemberdi briktirib
+			request.body.authMember = authMember; // for auth member custom decorator
 
 			return true;
 		}
