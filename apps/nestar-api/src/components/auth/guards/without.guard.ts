@@ -29,3 +29,6 @@ export class WithoutGuard implements CanActivate {
 		// description => http, rpc, gprs and etc are ignored
 	}
 }
+
+// if auth user => get details
+// if not => next step 
