@@ -96,23 +96,23 @@ export class MemberResolver {
     }
 
     /** UPLOADER */
-
     @UseGuards(AuthGuard)
     @Mutation((returns) => String)
     public async imageUploader(
-        @Args({ name: 'file', type: () => GraphQLUpload })
-        { createReadStream, filename, mimetype }: FileUpload,
-        @Args('target') target: String,
+        @Args({ name: 'file', type: () => GraphQLUpload }) // filedi qabul qlib typeni GraphQLUpload deb belgiladik
+        { createReadStream, filename, mimetype }: FileUpload, // FileUploadga tegishlik bolgan destruction qildik
+        @Args('target') target: String, // ozimizni target argumentn hosil qildik bu file => manzili
     ): Promise<string> {
         console.log('Mutation: imageUploader');
 
         if (!filename) throw new Error(Message.UPLOAD_FAILED);
         const validMime = validMimeTypes.includes(mimetype);
+        console.log('filename:', filename, '| mimetype:', mimetype);
         if (!validMime) throw new Error(Message.PROVIDE_ALLOWED_FORMAT);
 
-        const imageName = getSerialForImage(filename);
-        const url = `uploads/${target}/${imageName}`;
-        const stream = createReadStream();
+        const imageName = getSerialForImage(filename); // hammasi okey => random string uuid bilan
+        const url = `uploads/${target}/${imageName}`; // uploads folderni target nomli filega saqlashni aytdik
+        const stream = createReadStream(); // yuklash mexanizmi
 
         const result = await new Promise((resolve, reject) => {
             stream
