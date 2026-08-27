@@ -89,7 +89,7 @@ class MISearch {
 
     @IsOptional()
     @Field(() => MemberType, { nullable: true })
-    memberType?: MemberStatus;
+    memberType?: MemberType;
 
     @IsOptional()
     @Field(() => String, { nullable: true })

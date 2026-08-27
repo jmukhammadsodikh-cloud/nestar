@@ -54,22 +54,23 @@ export class MemberService {
         const result: Member | null = await this.memberModel
             .findByIdAndUpdate(
                 {
-                    _id: memberId,
+                    _id: memberId, // filter
                     memberStatus: MemberStatus.ACTIVE,
                 },
-                input,
-                { new: true },
+                input, // update
+                { new: true }, // option
             )
             .exec();
-        if (!result) throw new InternalServerErrorException(Message.UPLOAD_FAILED);
+        if (!result) throw new InternalServerErrorException(Message.UPDATE_FAILED);
 
+        // jwt payloada member malumoti bor uniham ozgartirishimz kerak
         result.accessToken = await this.authService.createToken(result);
         return result
     }
 
     public async getMember(memberId: ObjectId, targetId: ObjectId): Promise<Member> {
         const search: T = {
-            _id: targetId,
+            _id: targetId, // kimni kormoqchimiz
             memberStatus: {
                 $in: [MemberStatus.ACTIVE, MemberStatus.BLOCK],
             },
@@ -79,9 +80,12 @@ export class MemberService {
 
         if (memberId) {
             // record view
-            const viewInput = { memberId: memberId, viewRefId: targetId, viewGroup: ViewGroup.MEMBER };
+            const viewInput = {
+                memberId: memberId, // kim korayapti
+                viewRefId: targetId, // kimni korayapti
+                viewGroup: ViewGroup.MEMBER // nmani korayapti
+            };
             const newView = await this.viwService.recordView(viewInput);
-            // increase memberView
             if (newView) {
                 await this.memberModel.findOneAndUpdate(search, { $inc: { memberViews: 1 } }, { new: true }).exec();
                 targetMember.memberViews++
@@ -104,7 +108,9 @@ export class MemberService {
                 { $sort: sort },
                 {
                     $facet: {
+                        // kerakli sahifani kesib oladi
                         list: [{ $skip: (input.page - 1) * input.limit }, { $limit: input.limit }],
+                        // 	to'liq to'plamni sanaydi
                         metaCounter: [{ $count: 'total' }],
                     },
                 },
@@ -120,7 +126,7 @@ export class MemberService {
         const match: T = {};
         const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
 
-        if (memberStatus) match.MemberStatus = memberStatus;
+        if (memberStatus) match.memberStatus = memberStatus;
         if (memberType) match.memberType = memberType;
         if (text) match.memberNick = { $regex: new RegExp(text, 'i') };
         console.log('match:', match);

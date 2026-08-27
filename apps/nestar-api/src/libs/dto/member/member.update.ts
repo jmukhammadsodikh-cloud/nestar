@@ -49,6 +49,6 @@ export class MemberUpdate {
     @Field(() => String, { nullable: true })
     memberDesc?: string;
 
-    deleteAt?: Date
+    deletedAt?: Date
 
 }
