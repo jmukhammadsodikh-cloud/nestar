@@ -9,7 +9,6 @@ import { ComponentsModule } from './components/components.module';
 import { DatabaseModule } from './database/database.module';
 import { error } from 'console';
 import { T } from './libs/types/common';
-import { PropertyResolver } from './component/property/property.resolver';
 // app module => main module, integrations here
 @Module({ // decorator => propertylari
   imports: [
@@ -33,7 +32,7 @@ import { PropertyResolver } from './component/property/property.resolver';
     ComponentsModule, // components module bizni turli hil maqsadli modullarimizni jamlab beradi
     DatabaseModule],
   controllers: [AppController],
-  providers: [AppService, AppResolver, PropertyResolver], // we don't use 
+  providers: [AppService, AppResolver], // we don't use 
 })
 export class AppModule { }
 

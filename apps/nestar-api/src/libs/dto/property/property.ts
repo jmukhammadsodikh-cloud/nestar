@@ -1,0 +1,81 @@
+import { Field, Int, ObjectType } from '@nestjs/graphql';
+import * as mongoose from 'mongoose';
+import { MemberAuthType, MemberStatus, MemberType } from '../../enums/member.enum';
+import { PropertyLocation, PropertyStatus, PropertyType } from '../../enums/property.enum';
+
+@ObjectType()  // dto api chiqib kelayotgan malumot uchun
+export class Property {
+    @Field(() => String)
+    _id: mongoose.ObjectId;
+
+    @Field(() => PropertyType)
+    propertyType: PropertyType;
+
+    @Field(() => PropertyStatus)
+    propertyStatus: PropertyStatus;
+
+    @Field(() => PropertyLocation)
+    propertyLocation: PropertyLocation;
+
+    @Field(() => String)
+    propertyAddress: string;
+
+    @Field(() => String)
+    propertyTitle: string;
+
+    @Field(() => Number)
+    propertyPrice: number;
+
+    @Field(() => Number)
+    propertySquare: number;
+
+    @Field(() => Int)
+    propertyBeds: number;
+
+    @Field(() => Int)
+    propertyRooms: number;
+
+
+    @Field(() => Int)
+    propertyViews: number;
+
+    @Field(() => Int)
+    propertyLikes: number;
+
+
+    @Field(() => Int)
+    propertyComments: number;
+
+    @Field(() => Int)
+    propertyRank: number;
+
+    @Field(() => [String])
+    propertyImages: string[];
+
+    @Field(() => String, { nullable: true })
+    propertyDesc?: number;
+
+    @Field(() => Boolean)
+    propertyBarter: boolean;
+
+    @Field(() => Boolean)
+    propertyRent: boolean;
+
+    @Field(() => String)
+    memberId: mongoose.ObjectId;
+
+    @Field(() => Date, { nullable: true })
+    soldAt?: Date;
+
+    @Field(() => Date, { nullable: true })
+    deletedAt?: Date;
+
+    @Field(() => Date, { nullable: true })
+    constructedAt?: Date;
+
+    @Field(() => Date)
+    createdAt: Date;
+
+    @Field(() => Date)
+    updatedAt: Date;
+}
