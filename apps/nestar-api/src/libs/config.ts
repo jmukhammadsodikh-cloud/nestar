@@ -13,6 +13,7 @@ export const availablePropertySorts = [
     'propertyPrice',
 ];
 
+export const availableBoardArticleSorts = ['createdAt', 'updatedAt', 'articleLikes', 'articleViews'];
 
 import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
