@@ -30,11 +30,12 @@ export const shapeIntoMongoObjectId = (target: any) => {
 
 export const lookupMember = {
     $lookup: {
-        from: 'members',
+        from: 'members', // collectiondan 
         localField: 'memberId',
         foreignField: '_id',
         as: 'memberData',
     },
 };
-
+// Har bir e'lonning memberId qiymatini olib, members kolleksiyasidan
+//  _id si shunga teng bo'lgan hujjatni top va uni e'lonning memberData maydoniga qo'y."
 

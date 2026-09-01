@@ -106,6 +106,7 @@ export class PropertyService {
         const match: T = { propertyStatus: PropertyStatus.ACTIVE };
         const sort: T = { [input?.sort ?? 'createdAt']: input?.direction ?? Direction.DESC };
 
+        //filtr qurish
         this.shapeMatchQuery(match, input);
         console.log('match:', match);
 
@@ -133,6 +134,7 @@ export class PropertyService {
         return result[0];
     }
 
+    // filtr qurish
     private shapeMatchQuery(match: T, input: PropertiesInquiry): void {
         const {
             memberId,
@@ -195,9 +197,10 @@ export class PropertyService {
 
         if (!result.length) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
 
-        return result[0];
+        return result[0]; //birinchi va yagona elementni olish.
     }
 
+    // admin 
     public async getAllPropertiesByAdmin(input: AllPropertiesInquiry): Promise<Properties> {
         const { propertyStatus, propertyLocationList } = input.search;
         const match: T = {};
@@ -215,8 +218,8 @@ export class PropertyService {
                         list: [ // pagination qonuniyati
                             { $skip: (input.page - 1) * input.limit },
                             { $limit: input.limit },
-                            lookupMember,
-                            { $unwind: '$memberData' },
+                            lookupMember,   // ← egasini biriktirish
+                            { $unwind: '$memberData' }, // massivni yechib, oddiy obyektga aylantiradi:
                         ],
                         metaCounter: [{ $count: 'total' }],
                     },
@@ -235,7 +238,7 @@ export class PropertyService {
             _id: input._id,
             propertyStatus: PropertyStatus.ACTIVE,
         };
-
+        // sana muhrlash
         if (propertyStatus === PropertyStatus.SOLD) soldAt = moment().toDate();
         else if (propertyStatus === PropertyStatus.DELETE) deletedAt = moment().toDate();
 
@@ -266,3 +269,4 @@ export class PropertyService {
         return result;
     }
 }
+
