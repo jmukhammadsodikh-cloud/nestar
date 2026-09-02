@@ -1,12 +1,12 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { ObjectId } from 'mongoose';
+import * as mongoose from 'mongoose';
 import { CommentGroup, CommentStatus } from '../../enums/comment.enum';
 import { Member, TotalCounter } from '../member/member';
 
 @ObjectType()
 export class Comment {
 	@Field(() => String)
-	_id: ObjectId;
+	_id: mongoose.ObjectId;
 
 	@Field(() => CommentStatus)
 	commentStatus: CommentStatus;
@@ -18,10 +18,10 @@ export class Comment {
 	commentContent: string;
 
 	@Field(() => String)
-	commentRefId: ObjectId;
+	commentRefId: mongoose.ObjectId;
 
 	@Field(() => String)
-	memberId: ObjectId;
+	memberId: mongoose.ObjectId;
 
 	@Field(() => Date)
 	createdAt: Date;

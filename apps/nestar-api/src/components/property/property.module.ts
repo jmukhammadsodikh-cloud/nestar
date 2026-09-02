@@ -18,6 +18,7 @@ import { MemberModule } from '../member/member.module';
     ViewModule,// import qilib member serviceda ishlatamiz
     MemberModule,
   ],
-  providers: [PropertyResolver, PropertyService]
+  providers: [PropertyResolver, PropertyService],
+  exports: [PropertyService],
 })
 export class PropertyModule { }

@@ -157,7 +157,7 @@ export class MemberService {
     public async memberStatsEditor(input: StatisticModifier): Promise<Member> {
         const { _id, targetKey, modifier } = input;
         const result: Member | null = await this.memberModel
-            .findOneAndUpdate(
+            .findByIdAndUpdate(
                 _id,
                 {
                     $inc: { [targetKey]: modifier },

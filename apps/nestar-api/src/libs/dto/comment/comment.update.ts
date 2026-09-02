@@ -1,13 +1,13 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsNotEmpty, IsOptional, Length } from 'class-validator';
 import { CommentStatus } from '../../enums/comment.enum';
-import { ObjectId } from 'mongoose';
+import * as mongoose from 'mongoose';
 
 @InputType()
 export class CommentUpdate {
 	@IsNotEmpty()
 	@Field(() => String)
-	_id: ObjectId;
+	_id: mongoose.ObjectId;
 
 	@IsOptional()
 	@Field(() => CommentStatus, { nullable: true })
