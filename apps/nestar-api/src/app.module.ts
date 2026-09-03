@@ -18,6 +18,7 @@ import { T } from './libs/types/common';
       playground: true,
       uploads: false,
       autoSchemaFile: true,
+      // Frontendga aniqroq hatolikni yuboradi
       // FormatError global har bitta errorni bizga olib beradi
       formatError: (error: T) => { // methodlarda yozmasdan global bitta define qlamiz GRPHql default error noqulay biz standart errorga otkazamiz
         const graphQLFormattedError = {
@@ -38,3 +39,6 @@ export class AppModule { }
 
 // resolverda hosil bolgan errorni qabul qilayapmiz va ozimizni 
 // hosil qilgan error orqali frontentga yuborayapmiz
+
+// Carnel => operation system katta bolaga hardware sofwarega ulab
+// har bitta task qancha resurs ishlatishini ozi hal qiladi

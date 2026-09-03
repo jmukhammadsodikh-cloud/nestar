@@ -33,6 +33,7 @@ export class CommentService {
         }
         // switch-case — bitta qiymatni variantlar bilan solishtirib,
         //  mos kelganini bajaradi. if / else if ning qisqasi.
+        // shart yoq shu uchun switch case
         switch (input.commentGroup) {
             case CommentGroup.PROPERTY:
                 await this.propertyService.propertyStatsEditor({
@@ -66,8 +67,8 @@ export class CommentService {
         const { _id } = input;
         const result = await this.commentModel.findOneAndUpdate(
             {
-                _id: _id,
-                memberId: memberId,
+                _id: _id,  // qaysi izoh
+                memberId: memberId,    // izohni kim yozgan
                 commentStatus: CommentStatus.ACTIVE,
             },
             input,

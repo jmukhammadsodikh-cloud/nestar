@@ -22,7 +22,7 @@ export class BoardArticleService {
 
     public async createBoardArticle(memberId: ObjectId, input: BoardArticleInput): Promise<BoardArticle> {
         input.memberId = memberId;
-        // try catch aynan database validation uchun
+        // try catch aynan database validation uchun hunuk hatoni customized errorga ogirdik
         try {
             const result = await this.boardArticleModel.create(input);
             await this.memberService.memberStatsEditor({
@@ -52,9 +52,10 @@ export class BoardArticleService {
             const newView = await this.viewService.recordView(viewInput);
             if (newView) {
                 await this.boardArticleStatsEditor({ _id: articleId, targetKey: 'articleViews', modifier: 1 });
-                targetBoardArticle.articleViews++;
+                targetBoardArticle.articleViews++; // bu qoyilmasa page refresh bolgandan kein qoyiladi
             }
         }
+        // Muallif ma'lumotini biriktirish => shunchaki uning ismini olyapmiz.
         targetBoardArticle.memberData = await this.memberService.getMember(null, targetBoardArticle.memberId);
         return targetBoardArticle;
     }
@@ -65,8 +66,8 @@ export class BoardArticleService {
         const result = await this.boardArticleModel
             .findOneAndUpdate(
                 {
-                    _id: _id,
-                    memberId: memberId,
+                    _id: _id, //  maqolaning ID'si 
+                    memberId: memberId, // muallifning ID'si 
                     articleStatus: BoardArticleStatus.ACTIVE,
                 },
                 input,
@@ -202,3 +203,9 @@ export class BoardArticleService {
     }
 }
 
+/**
+ Nima uchun $lookup $skip/$limit dan KEYIN turibdi?
+Bu optimizatsiya. Agar oldin qo'yilsa, baza 10 000 ta maqolaning 
+hammasi uchun JOIN qilardi, keyin 10 tasini olardi. Hozirgi tartibda 
+— avval 10 ta ajratiladi, keyin faqat o'sha 10 tasi uchun JOIN bo'ladi.
+ */
