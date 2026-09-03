@@ -78,6 +78,16 @@ export class MemberResolver {
         return await this.memberService.getAgents(memberId, input);
     }
 
+
+    @UseGuards(AuthGuard)
+    @Mutation(() => Member)// UnAuntihanticated members // royhatdan otmagan azolarni ham like bosadi
+    public async likeTargetMember(@Args("memberId") input: string, @AuthMember('_id') memberId: mongoose.ObjectId,): Promise<Member> {
+        console.log('Mutation: likeTargetMember');
+        const likeRefId = shapeIntoMongoObjectId(input);
+        return await this.memberService.likeTargetMember(memberId, likeRefId);
+    }
+
+
     // ADMIN
     @Roles(MemberType.ADMIN)
     @UseGuards(RolesGuard)
