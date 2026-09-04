@@ -50,16 +50,19 @@ export class BoardArticleService {
 
         const targetBoardArticle: BoardArticle | null = await this.boardArticleModel.findOne(search).lean().exec();
         if (!targetBoardArticle) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
-        // agar murojatchi bolsa view+
         if (memberId) {
             const viewInput = { memberId: memberId, viewRefId: articleId, viewGroup: ViewGroup.ARTICLE };
             const newView = await this.viewService.recordView(viewInput);
             if (newView) {
                 await this.boardArticleStatsEditor({ _id: articleId, targetKey: 'articleViews', modifier: 1 });
-                targetBoardArticle.articleViews++; // bu qoyilmasa page refresh bolgandan kein qoyiladi
+                targetBoardArticle.articleViews++;
             }
+
+            // meLiked
+            const likeInput = { memberId: memberId, likeRefId: articleId, likeGroup: LikeGroup.PROPERTY };
+            targetBoardArticle.meLiked = await this.likeService.checkLikeExistence(likeInput);
         }
-        // Muallif ma'lumotini biriktirish => shunchaki uning ismini olyapmiz.
+
         targetBoardArticle.memberData = await this.memberService.getMember(null, targetBoardArticle.memberId);
         return targetBoardArticle;
     }
@@ -229,10 +232,3 @@ export class BoardArticleService {
             .exec();
     }
 }
-
-/**
- Nima uchun $lookup $skip/$limit dan KEYIN turibdi?
-Bu optimizatsiya. Agar oldin qo'yilsa, baza 10 000 ta maqolaning 
-hammasi uchun JOIN qilardi, keyin 10 tasini olardi. Hozirgi tartibda 
-— avval 10 ta ajratiladi, keyin faqat o'sha 10 tasi uchun JOIN bo'ladi.
- */
