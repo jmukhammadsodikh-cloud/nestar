@@ -2,6 +2,7 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 import * as mongoose from 'mongoose';
 import { MemberAuthType, MemberStatus, MemberType } from '../../enums/member.enum';
 import { MeLiked } from '../like/like';
+import { MeFollowed } from '../follow/follow';
 
 @ObjectType()  // dto api chiqib kelayotgan malumot uchun
 export class Member {
@@ -84,8 +85,12 @@ export class Member {
     accessToken?: string;
 
     /** from aggregation */
+
     @Field(() => [MeLiked], { nullable: true })
     meLiked?: MeLiked[];
+
+    @Field(() => [MeFollowed], { nullable: true })
+    MeFollowed?: MeFollowed[];
 }
 
 @ObjectType()
