@@ -73,6 +73,7 @@ export class PropertyResolver {
         return await this.propertyService.getAgentProperties(memberId, input);
     }
 
+    // Front-end: yurakcha bosildi ==>...
     @UseGuards(AuthGuard)
     @Mutation(() => Property)
     public async likeTargetProperty(@Args("propertyId") input: string, @AuthMember('_id') memberId: mongoose.ObjectId,): Promise<Property> {

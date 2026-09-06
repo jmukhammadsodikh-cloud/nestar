@@ -15,11 +15,12 @@ export class FollowService {
     ) { }
 
     public async subscribe(followerId: ObjectId, followingId: ObjectId): Promise<Follower> {
+        // o'ziga obuna bo'lishni taqiqlash
         if (followerId.toString() === followingId.toString()) {
             throw new InternalServerErrorException(Message.SELF_SUBSCRIPTION_DENIED);
         }
 
-        const targetMember = await this.memberService.getMember(null, followingId);
+        const targetMember = await this.memberService.getMember(null, followingId); //bu odam bormi? degan javob kerak.
         if (!targetMember) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
 
         const result = await this.registerSubscription(followerId, followingId);

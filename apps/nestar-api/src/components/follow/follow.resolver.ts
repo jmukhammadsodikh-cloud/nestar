@@ -33,11 +33,11 @@ export class FollowResolver {
 
     @UseGuards(WithoutGuard)
     @Query((returns) => Followings)
-    public async getMemberFollowings( // podpiski
+    public async getMemberFollowings( // podpiski men kimlarga obunaman?
         @Args('input') input: FollowInquiry,
         @AuthMember('_id') memberId: mongoose.ObjectId,
     ): Promise<Followings> {
-        console.log('Muttation: getMemberFollowings');
+        console.log('Query: getMemberFollowings');
         const { followerId } = input.search;
         input.search.followerId = shapeIntoMongoObjectId(followerId);
         return await this.followService.getMemberFollowings(memberId, input);
@@ -45,7 +45,7 @@ export class FollowResolver {
 
     @UseGuards(WithoutGuard)
     @Query((returns) => Followers)
-    public async getMemberFollowers( // podpischiki
+    public async getMemberFollowers( // podpischiki menga kimlar obuna?
         @Args('input') input: FollowInquiry,
         @AuthMember('_id') memberId: mongoose.ObjectId,
     ): Promise<Followers> {

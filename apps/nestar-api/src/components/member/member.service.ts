@@ -135,7 +135,6 @@ export class MemberService {
         return result[0];
     }
 
-
     public async likeTargetMember(memberId: ObjectId, likeRefId: ObjectId): Promise<Member> {
         const target: Member | null = await this.memberModel
             .findOne({ _id: likeRefId, memberStatus: MemberStatus.ACTIVE })
@@ -192,7 +191,6 @@ export class MemberService {
         const result = await this.followModel.findOne({ followingId: followingId, followerId: followerId }).exec();
         return result ? [{ followerId: followerId, followingId: followingId, myFollowing: true }] : [];
     }
-
 
     public async memberStatsEditor(input: StatisticModifier): Promise<Member> {
         const { _id, targetKey, modifier } = input;

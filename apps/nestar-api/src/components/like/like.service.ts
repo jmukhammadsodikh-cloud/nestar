@@ -10,6 +10,7 @@ import { Message } from '../../libs/enums/common.enum';
 export class LikeService {
     constructor(@InjectModel('Like') private readonly likeModel: Model<Like>) { }
 
+    // yozadi (like bosganda) va ochiradi
     public async toggleLike(input: LikeInput): Promise<number> {
         const search: T = { memberId: input.memberId, likeRefId: input.likeRefId },
             exist = await this.likeModel.findOne(search).exec();
@@ -30,6 +31,7 @@ export class LikeService {
         return modifier;
     }
 
+    // men bosganmanmi?=> bu o'qiydi (sahifa ochilganda).
     public async checkLikeExistence(input: LikeInput): Promise<MeLiked[]> {
         const { memberId, likeRefId } = input;
         const result = await this.likeModel

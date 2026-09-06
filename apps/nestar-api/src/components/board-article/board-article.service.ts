@@ -143,11 +143,11 @@ export class BoardArticleService {
             likeGroup: LikeGroup.ARTICLE,
         };
 
-        const modifier: number = await this.likeService.toggleLike(input);
+        const modifier: number = await this.likeService.toggleLike(input);  // +1 yoki -1
         const result = await this.boardArticleStatsEditor({
             _id: likeRefId,
             targetKey: 'articleLikes',
-            modifier: modifier,
+            modifier: modifier,   // ← o'sha son shu yerga uzatildi
         });
 
         if (!result) throw new InternalServerErrorException(Message.SOMETHING_WENT_WRONG);
