@@ -99,6 +99,7 @@ export class FollowService {
             .aggregate([
                 { $match: match },
                 { $sort: { createdAt: Direction.DESC } },
+
                 {
                     $facet: {
                         list: [
