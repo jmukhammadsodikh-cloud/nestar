@@ -9,6 +9,7 @@ import { ComponentsModule } from './components/components.module';
 import { DatabaseModule } from './database/database.module';
 import { error } from 'console';
 import { T } from './libs/types/common';
+import { SocketModule } from './socket/socket.module';
 // app module => main module, integrations here
 @Module({ // decorator => propertylari
   imports: [
@@ -31,7 +32,7 @@ import { T } from './libs/types/common';
       }
     }),
     ComponentsModule, // components module bizni turli hil maqsadli modullarimizni jamlab beradi
-    DatabaseModule],
+    DatabaseModule, SocketModule],
   controllers: [AppController],
   providers: [AppService, AppResolver], // we don't use 
 })

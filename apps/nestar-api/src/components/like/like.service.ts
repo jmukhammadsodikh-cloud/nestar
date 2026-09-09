@@ -54,9 +54,9 @@ export class LikeService {
         const data: T = await this.likeModel
             .aggregate([
                 { $match: match },
-                { $sort: { updatedAt: -1 } },
+                { $sort: { updatedAt: -1 } }, // eng ohirgi like bosilganla
                 {
-                    $lookup: {
+                    $lookup: { // uylarni tortib olish
                         from: 'properties',
                         localField: 'likeRefId',
                         foreignField: '_id',
@@ -65,11 +65,11 @@ export class LikeService {
                 },
                 { $unwind: '$favoriteProperty' },
                 {
-                    $facet: {
+                    $facet: {//  ikkiga bo'lish
                         list: [
                             { $skip: (page - 1) * limit },
                             { $limit: limit },
-                            lookupFavorite,
+                            lookupFavorite, // (ichma-ich member JOIN)
                             { $unwind: '$favoriteProperty.memberData' },
                         ],
                         metaCounter: [{ $count: 'total' }],
@@ -79,6 +79,7 @@ export class LikeService {
             .exec();
 
         console.log('data:', data);
+        // bo'sh idish tayyorlash
         const result: Properties = { list: [], metaCounter: data[0].metaCounter };
         result.list = data[0].list.map((ele) => ele.favoriteProperty);
         console.log('result:', result);

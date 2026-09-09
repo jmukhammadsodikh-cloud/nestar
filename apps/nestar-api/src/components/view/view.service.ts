@@ -37,7 +37,7 @@ export class ViewService {
                 { $match: match },
                 { $sort: { updatedAt: -1 } },
                 {
-                    $lookup: {
+                    $lookup: { // uylarni tortish
                         from: 'properties',
                         localField: 'viewRefId',
                         foreignField: '_id',
@@ -51,7 +51,7 @@ export class ViewService {
                             { $skip: (page - 1) * limit },
                             { $limit: limit },
                             lookupVisit,
-                            { $unwind: '$visitedProperty.memberData' },
+                            { $unwind: '$visitedProperty.memberData' }, //  // ← agent55
                         ],
                         metaCounter: [{ $count: 'total' }],
                     },
